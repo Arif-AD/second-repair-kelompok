@@ -1,0 +1,47 @@
+{% extends 'layout.html' %}
+
+{% block head %}
+<title>Pilot Repair</title>
+<style>
+    #logo-container {
+        text-align: center;
+        margin-top: 20px; 
+    }
+
+    #logo-image {
+        width: 300px;
+        height: auto;
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+<!-- hero -->
+<section class="hero container">
+    <div class="">
+        <div class="row">
+            <div class="hero-text">
+                <div id="logo-container">
+                    <img id="logo-image" src="../static/image/logo.png" alt="Logo">
+                </div>
+                <ul class="menu">
+                    <li class="nav-item active">
+                        <a class="nav-link" aria-current="page" href="#">Beranda</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Produk</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Kontak</a>
+                    </li>
+                </ul>
+                <h1>Cari HP Bekas Berkualitas ?</h1>
+                <p>Temukan pilihan terbaik dengan harga yang menarik</p>
+                <a href="/login">
+                    <button class="btn btn-chat">Masuk Sekarang</button>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

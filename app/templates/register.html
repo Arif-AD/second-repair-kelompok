@@ -1,0 +1,81 @@
+{% extends 'layout.html' %}
+
+{% block head %}
+<title>Login</title>
+{% endblock %}
+
+{% block body %}
+<div class="container d-flex justify-content-center align-items-center min-vh-100">
+    <div class="row border rounded-5 p-3 bg-white shadow box-area">
+        <div class="col-md-12 right-box">
+            <div class="row align-items-center">
+                <div class="header-text mb-4">
+                    <img src="../static/image/logo.png">
+                    <p>Silahkan daftar terlebih dahulu</p>
+                </div>
+                <form method="post" id="loginForm" action="{{ url_for('users') }}">
+                    <!-- pesan -->
+                    <div id="loginMessageContainer" class="mt-3"></div>
+                    <div class="input-group mb-3 row">
+                        <input type="text" name="inpNama" class="form-control form-control-lg bg-light fs-6" placeholder="Nama Lengkap">
+                    </div>
+                    <div class="input-group mb-3 row">
+                        <input type="text" name="inpEmail" class="form-control form-control-lg bg-light fs-6" placeholder="Alamat Email">
+                    </div>
+                    <div class="input-group mb-1 row">
+                        <input type="password" name="inpPass" class="form-control form-control-lg bg-light fs-6" placeholder="Kata Sandi">
+                    </div>
+                    <a id="tombol-login" href="/">
+                        <button type="submit" class="btn tombol btn-lg w-100 fs-6">Daftar</button>
+                    </a>
+                    <a id="login-google" href="/">
+                        <button class="btn tombol btn-lg w-100 fs-6"><img class="mr-3" src="../static/image/logo_google.png" style="width:20px" class="me-2">Masuk Dengan Akun Google</button>
+                    </a>
+                </form>
+                <a id="daftar" href="/login">Sudah punya akun ? Login Disini</a>
+
+            </div>
+        </div> 
+    </div>
+</div>
+<script>
+    document.getElementById('loginForm').addEventListener('submit', function (event) {
+        event.preventDefault(); 
+
+        var loginForm = this;
+        var loginMessageContainer = document.getElementById('loginMessageContainer');
+
+        fetch('/users', {
+            method: 'POST',
+            body: new FormData(loginForm),
+        })
+            .then(response => {
+                if (response.ok) {
+                    loginMessageContainer.innerHTML = '<div class="alert alert-success" role="alert">Daftar Akun Berhasil !</div>';
+                    setTimeout(function () {
+                        loginMessageContainer.innerHTML = '';
+                        window.location.href = '/login'; 
+                    }, 1500); 
+                } else {
+                    loginMessageContainer.innerHTML = '<div class="alert alert-danger" role="alert">Daftar Akun Gagal. Cek kembali nama, email, dan password Anda.</div>';
+                    setTimeout(function () {
+                        loginMessageContainer.innerHTML = '';
+                    }, 1500);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                loginMessageContainer.innerHTML = '<div class="alert alert-danger" role="alert">Terjadi kesalahan. Silakan coba lagi nanti.</div>';
+                setTimeout(function () {
+                    loginMessageContainer.innerHTML = '';
+                }, 1500);
+            });
+    });
+</script>
+
+{% endblock %}
+
+
+<a id="tombol-login" href="/">
+    <button type="submit" class="btn tombol btn-lg w-100 fs-6">Daftar</button>
+</a>
